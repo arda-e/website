@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
-
   "scripts": {
     "dev": "ts-node src/server.tsx",
     "start": "node dist/server.js",
@@ -11,15 +10,14 @@
     "build:client": "node build.mjs",
     "build:all": "npm run build && npm run build:client"
   },
-
   "dependencies": {
     "compression": "^1.8.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "helmet": "^8.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
-
   "devDependencies": {
     "@types/compression": "^1.8.0",
     "@types/express": "^5.0.2",

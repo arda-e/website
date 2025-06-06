@@ -6,6 +6,8 @@ import { dirname, join } from "path";
 import dotenv from "dotenv";
 import Home from "./pages/home/Home.js"
 import {renderToString} from "react-dom/server";
+import helmet from "helmet";
+
 dotenv.config();
 
 const app = express();
@@ -14,7 +16,7 @@ const port = process.env.PORT || 80;
 // Handle __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
+app.use(helmet())
 // Compression middleware
 app.use(compression());
 
@@ -48,9 +50,6 @@ app.get("/", (_req, res) => {
       </html>
   `);
 });
-
-
-
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

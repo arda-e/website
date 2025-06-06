@@ -19,6 +19,9 @@ jobs:
       - name: Save Docker image to tarball
         run: docker save express-ssr-app:latest -o image.tar
 
+      - name: List files before SCP
+        run: ls -lah
+
       - name: Copy image to remote server
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -28,8 +31,7 @@ jobs:
           source: "image.tar,docker-compose.yml"
           target: "~/express-ssr-app"
 
-      - name: List files before SCP
-        run: ls -lah
+
 
       - name: Load and run Docker image on remote server
         uses: appleboy/ssh-action@v1.0.0
