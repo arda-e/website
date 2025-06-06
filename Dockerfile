@@ -9,7 +9,7 @@ RUN npm ci
 
 # sources
 COPY src ./src
-COPY src/public ./src/public
+COPY build.mjs ./build.mjs
 
 # full build (server + vendor + client + assets)
 RUN npm run build:all
