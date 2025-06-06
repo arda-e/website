@@ -2,8 +2,7 @@ version: '3.8'
 
 services:
   express-server:
-    build: .
-    container_name: express_static_server
+    image: express-ssr-app:latest
     ports:
       - "80:80"
-    platform: linux/arm64
+    restart: always
