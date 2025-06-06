@@ -1,11 +1,11 @@
 # ---------- Stage 1 : build ----------
-FROM --platform=linux/arm64 node:20-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 
 # deps & tools
 COPY package*.json ./
 COPY tsconfig.json ./
-RUN npm install
+RUN npm ci
 
 # sources
 COPY src ./src
@@ -15,7 +15,7 @@ COPY src/public ./src/public
 RUN npm run build:all
 
 # ---------- Stage 2 : runtime ----------
-FROM --platform=linux/arm64 node:20-alpine
+FROM node:20-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 
