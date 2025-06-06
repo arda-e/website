@@ -6,8 +6,6 @@ import { dirname, join } from 'path';
 import dotenv from 'dotenv';
 import Home from './pages/home/Home.js';
 import { renderToString } from 'react-dom/server';
-import helmet from 'helmet';
-import { randomBytes } from 'node:crypto';
 
 dotenv.config();
 
@@ -17,32 +15,6 @@ const port = process.env.PORT || 80;
 // Handle __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-// 1. Generate a nonce per request
-app.use((req, res, next) => {
-    res.locals.nonce = randomBytes(16).toString('base64');
-    next();
-});
-
-app.use(
-    helmet({
-        contentSecurityPolicy: {
-            useDefaults: true,
-            directives: {
-                "default-src": ["'self'"],
-                "style-src": ["'self'"], // no 'unsafe-inline'
-                "script-src": [
-                    "'self'",
-                    "https://esm.sh",
-                ],
-                "connect-src": ["'self'", "https://esm.sh"],
-                "object-src": ["'none'"], // better security
-                "base-uri": ["'self'"],
-                "form-action": ["'self'"]
-            },
-        },
-    })
-);
 
 // Compression middleware
 app.use(compression());
@@ -61,7 +33,7 @@ app.get('/', (_req, res) => {
       <head>
         <title>React SSR</title>
         <link rel="stylesheet" href="/main.css">
-        <script type="importmap" nonce="${nonce}">
+        <script type="importmap">
           {
             "imports": {
               "react": "https://esm.sh/react@19.1.0",
@@ -74,7 +46,7 @@ app.get('/', (_req, res) => {
       </head>
       <body>
         <div id="root">${html}</div>
-        <script type="module" nonce="${nonce}" src="/app.js"></script>    
+        <script type="module" src="/app.js"></script>    
       </body>
     </html>
   `);
