@@ -14,12 +14,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: |
-          docker build -t express-ssr-app:latest .
+        run: docker build -t express-ssr-app:latest .
 
       - name: Save Docker image to tarball
-        run: |
-          docker save express-ssr-app:latest -o image.tar
+        run: docker save express-ssr-app:latest -o image.tar
 
       - name: Copy image to remote server
         uses: appleboy/scp-action@v0.1.4
@@ -27,8 +25,10 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "image.tar"
-          target: "~/express-ssr-app/image.tar"
+          source: | 
+            "image.tar"
+            "docker-compose.yml"
+          target: "~/express-ssr-app"
 
       - name: Load and run Docker image on remote server
         uses: appleboy/ssh-action@v1.0.0
