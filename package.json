@@ -1,13 +1,33 @@
 {
-  "name": "express",
+  "name": "express-ssr-react",
   "version": "1.0.0",
-  "description": "",
+  "type": "module",
+  "private": true,
+
   "scripts": {
-    "start": "node src/server.js"
+    "dev": "ts-node src/server.tsx",
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "build:client": "node build.mjs",
+    "build:all": "npm run build && npm run build:client"
   },
+
   "dependencies": {
+    "compression": "^1.8.0",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "compression": "^1.8.0"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
-  "private": true
+
+  "devDependencies": {
+    "@types/compression": "^1.8.0",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.30",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.6",
+    "esbuild": "^0.25.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
 }
