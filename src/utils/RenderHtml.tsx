@@ -1,6 +1,6 @@
 import { Response, Request } from 'express'
 import { renderToString } from "react-dom/server";
-import Home from "../pages/home/Home";
+import {Home} from "../pages/";
 
 const renderHtml = ( _req: Request, res: Response) => {
     const html = renderToString(<Home />);

@@ -1,7 +1,7 @@
 import { build as esbuild } from "esbuild";
 import { mkdirSync, cpSync } from "fs";
 import { resolve } from "path";
-import { nodeExternalsPlugin } from "esbuild-plugin-node-externals";
+import nodeExternalsPlugin from "esbuild-plugin-node-externals";
 
 const dist = resolve("dist");
 const distPublic = resolve(dist, "public");
