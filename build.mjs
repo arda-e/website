@@ -37,7 +37,7 @@ async function buildServer() {
         format: "esm",
         target: "node20",
         outfile: "dist/index.js",
-        external: [nodeExternalsPlugin()],
+        plugins: [nodeExternalsPlugin()],
     });
 
     console.log("Built server: index.js");
