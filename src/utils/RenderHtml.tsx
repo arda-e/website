@@ -1,8 +1,8 @@
+import { Response, Request } from 'express'
 import { renderToString } from "react-dom/server";
-import { Response } from 'express'
-import Home from "./pages/home/Home";
+import Home from "../pages/home/Home";
 
-export default function renderHtml(res: Response) {
+const renderHtml = ( _req: Request, res: Response) => {
     const html = renderToString(<Home />);
 
     res.send(`
@@ -29,3 +29,5 @@ export default function renderHtml(res: Response) {
     </html>
   `);
 }
+
+export { renderHtml };
