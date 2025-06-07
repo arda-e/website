@@ -7,7 +7,7 @@ const dist = resolve("dist");
 const distPublic = resolve(dist, "public");
 const entryClient = "src/app.tsx";
 
-function buildClient() {
+async function buildClient() {
     mkdirSync(distPublic, { recursive: true });
 
     return esbuild({
@@ -29,20 +29,19 @@ function buildClient() {
     });
 }
 
-function buildServer() {
-    async function buildServer() {
-        await esbuild({
-            entryPoints: ["src/index.ts"],
-            bundle: true,
-            platform: "node",
-            format: "esm",
-            target: "node20",
-            outfile: "dist/index.js",
-            external: [nodeExternalsPlugin()],
-        });
+async function buildServer() {
+    await esbuild({
+        entryPoints: ["src/index.ts"],
+        bundle: true,
+        platform: "node",
+        format: "esm",
+        target: "node20",
+        outfile: "dist/index.js",
+        external: [nodeExternalsPlugin()],
+    });
 
-        console.log("Built server: index.js");
-}}
+    console.log("Built server: index.js");
+}
 
 const target = process.argv[2];
 
